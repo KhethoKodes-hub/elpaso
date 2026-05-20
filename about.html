@@ -21,27 +21,334 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
 
   <style>
-    /* Page Hero Banner */
+    /* ============================================================
+       PAGE HERO — CENTERED SLIDE-IN TITLE
+       ============================================================ */
     .page-hero {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      padding: 80px 0 60px;
       position: relative;
+      height: 460px;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .page-hero::before {
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url(images/assets/deepclean2.png) center/cover no-repeat;
+    }
+
+    /* Strong multi-layer overlay so all text is crisp */
+    .page-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(5, 15, 50, 0.82) 0%,
+        rgba(13, 40, 110, 0.70) 55%,
+        rgba(5, 15, 50, 0.78) 100%
+      );
+    }
+
+    .page-hero-content {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 0 20px;
+      max-width: 680px;
+    }
+
+    /* Breadcrumb */
+    .page-hero-content .breadcrumb {
+      justify-content: center;
+      margin-bottom: 18px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: slideUp 0.6s ease 0.1s forwards;
+    }
+    .page-hero-content .breadcrumb-item a { color: #91bbff; text-decoration: none; }
+    .page-hero-content .breadcrumb-item.active { color: rgba(255,255,255,0.6); }
+    .page-hero-content .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,0.4); }
+
+    /* Eyebrow pill */
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(13, 110, 253, 0.22);
+      border: 1px solid rgba(13, 110, 253, 0.55);
+      color: #91bbff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 100px;
+      margin-bottom: 18px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.7s ease 0.25s forwards;
+    }
+
+    .page-hero-content h1 {
+      font-size: clamp(30px, 5vw, 58px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.12;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.55);
+      margin-bottom: 18px;
+      opacity: 0;
+      transform: translateY(36px);
+      animation: slideUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
+    }
+
+    .page-hero-content h1 .highlight {
+      color: #60aaff;
+      position: relative;
+    }
+
+    .page-hero-content h1 .highlight::after {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url(images/services2.jpg) center/cover no-repeat;
-      opacity: 0.18;
+      left: 0; right: 0; bottom: 2px;
+      height: 3px;
+      background: linear-gradient(90deg, #60aaff, #0d6efd);
+      border-radius: 2px;
+      opacity: 0.7;
     }
-    .page-hero .container { position: relative; z-index: 2; }
-    .page-hero h1 { color: #fff; font-weight: 800; }
-    .page-hero .breadcrumb-item a { color: #0d6efd; text-decoration: none; }
-    .page-hero .breadcrumb-item.active { color: #ccc; }
-    .page-hero .breadcrumb-item + .breadcrumb-item::before { color: #aaa; }
 
-    /* Story Timeline */
+    .page-hero-content p {
+      color: rgba(255,255,255,0.78);
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: slideUp 0.75s ease 0.65s forwards;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: slideUp 0.7s ease 0.82s forwards;
+    }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Shared button styles */
+    .glass-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0d6efd;
+      color: #fff !important;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.22s, box-shadow 0.25s;
+      box-shadow: 0 4px 20px rgba(13, 110, 253, 0.40);
+    }
+    .glass-btn:hover {
+      background: #0b5ed7;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(13, 110, 253, 0.52);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .glass-btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.10);
+      border: 1.5px solid rgba(255,255,255,0.45);
+      color: #fff !important;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      backdrop-filter: blur(6px);
+      transition: background 0.25s, transform 0.22s;
+    }
+    .glass-btn-outline:hover {
+      background: rgba(255,255,255,0.20);
+      transform: translateY(-3px);
+      text-decoration: none;
+      color: #fff;
+    }
+
+    /* ============================================================
+       STATS STRIP
+       ============================================================ */
+    .stats-strip {
+      background: linear-gradient(135deg, #0d1b3e 0%, #0d6efd 100%);
+      padding: 52px 0;
+    }
+    .stat-item {
+      text-align: center;
+      color: #fff;
+      padding: 0 20px;
+      position: relative;
+    }
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 20%; bottom: 20%;
+      width: 1px;
+      background: rgba(255,255,255,0.20);
+    }
+    .stat-number {
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.72;
+    }
+
+    /* ============================================================
+       WHO WE ARE
+       ============================================================ */
+    .imageblock {
+      overflow: hidden;
+      border-radius: 16px;
+      transition: box-shadow 0.35s ease;
+    }
+    .imageblock:hover { box-shadow: 0 20px 56px rgba(0,0,0,0.18); }
+    .imageblock img { transition: transform 0.55s ease; width: 100%; }
+    .imageblock:hover img { transform: scale(1.04); }
+
+    /* ============================================================
+       DUAL DIAGONAL IMAGE EFFECT
+       ============================================================ */
+    .dual-image-section {
+      position: relative;
+      height: 420px;
+      overflow: hidden;
+      margin: 60px 0 0;
+    }
+
+    .dual-image-side {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      overflow: hidden;
+      transition: width 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+      cursor: pointer;
+    }
+
+    .dual-image-side.left {
+      left: 0;
+      width: 52%;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 60px) 100%, 0 100%);
+    }
+    .dual-image-side.right {
+      right: 0;
+      width: 52%;
+      clip-path: polygon(60px 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .dual-image-side img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease, filter 0.5s ease;
+      filter: brightness(0.72) saturate(1.1);
+    }
+
+    .dual-image-side.left:hover {
+      width: 78%;
+      z-index: 2;
+      clip-path: polygon(0 0, 100% 0, calc(100% - 70px) 100%, 0 100%);
+    }
+    .dual-image-side.right:hover {
+      width: 78%;
+      z-index: 2;
+      clip-path: polygon(70px 0, 100% 0, 100% 100%, 0 100%);
+    }
+    .dual-image-side:hover img {
+      transform: scale(1.06);
+      filter: brightness(0.62) saturate(1.2);
+    }
+
+    .dual-label {
+      position: absolute;
+      bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0,0,0,0.42);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 14px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform 0.35s ease, background 0.3s;
+      pointer-events: none;
+    }
+    .dual-image-side.left  .dual-label { left: 28px; }
+    .dual-image-side.right .dual-label { right: 28px; left: auto; }
+    .dual-image-side:hover .dual-label {
+      transform: translateY(-4px);
+      background: rgba(13,110,253,0.55);
+    }
+    .dual-label .label-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .dual-divider-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      background: #fff;
+      color: #0d6efd;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border-radius: 100px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    /* ============================================================
+       STORY TIMELINE
+       ============================================================ */
     .timeline { position: relative; padding-left: 40px; }
     .timeline::before {
       content: '';
@@ -51,105 +358,146 @@
       background: linear-gradient(to bottom, #0d6efd, #6ea8fe);
       border-radius: 3px;
     }
-    .timeline-item { position: relative; margin-bottom: 40px; }
+    .timeline-item { position: relative; margin-bottom: 44px; }
     .timeline-dot {
       position: absolute;
-      left: -34px; top: 4px;
+      left: -34px; top: 6px;
       width: 20px; height: 20px;
       background: #0d6efd;
       border-radius: 50%;
       border: 3px solid #fff;
-      box-shadow: 0 0 0 3px #0d6efd;
+      box-shadow: 0 0 0 3px rgba(13,110,253,0.35);
     }
-    .timeline-item h5 { color: #0d6efd; font-weight: 700; margin-bottom: 6px; }
+    .timeline-item h5 { color: #0d6efd; font-weight: 700; margin-bottom: 8px; font-size: 15px; }
 
-    /* Stats bar */
-    .stats-bar { background: #0d6efd; padding: 40px 0; }
-    .stat-item { text-align: center; color: #fff; }
-    .stat-item h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 4px; }
-    .stat-item p { margin: 0; font-size: 0.95rem; opacity: 0.9; }
-
-    /* Values cards */
+    /* ============================================================
+       VALUE / MISSION CARDS
+       ============================================================ */
     .value-card {
-      border: none;
-      border-radius: 12px;
-      padding: 32px 24px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid #e8eef8;
+      border-radius: 16px;
+      padding: 32px 26px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
       height: 100%;
     }
-    .value-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+    .value-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(13,110,253,0.10);
+      border-color: rgba(13,110,253,0.20);
+    }
     .value-icon {
-      width: 60px; height: 60px;
-      background: #e8f0fe;
-      border-radius: 50%;
+      width: 58px; height: 58px;
+      background: linear-gradient(135deg, rgba(13,110,253,0.10), rgba(13,110,253,0.05));
+      border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 18px;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .value-card:hover .value-icon {
+      transform: scale(1.1) rotate(-5deg);
+      background: linear-gradient(135deg, rgba(13,110,253,0.18), rgba(13,110,253,0.08));
     }
 
-    /* Team card */
-    .team-card {
-      border: none;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      transition: transform 0.3s;
+    /* ============================================================
+       GOALS STRIP
+       ============================================================ */
+    .cta-strip {
+      background: #f8faff;
+      border-left: 4px solid #0d6efd;
+      padding: 32px 36px;
+      border-radius: 0 12px 12px 0;
     }
-    .team-card:hover { transform: translateY(-6px); }
-    .team-card img { width: 100%; height: 280px; object-fit: cover; object-position: top; }
-    .team-card-body { padding: 24px; }
-    .team-card-body h5 { font-weight: 700; margin-bottom: 4px; }
-    .team-card-body .role { color: #0d6efd; font-size: 0.9rem; font-weight: 600; margin-bottom: 12px; }
 
-    /* CTA strip */
-    .cta-strip { background: #f8f9fa; border-left: 5px solid #0d6efd; padding: 28px 32px; border-radius: 8px; }
+    /* ============================================================
+       CTA SECTION OVERLAY
+       ============================================================ */
+    #cta {
+      position: relative;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(5, 15, 50, 0.82) 0%,
+        rgba(13, 40, 110, 0.72) 50%,
+        rgba(5, 15, 50, 0.78) 100%
+      );
+      z-index: 1;
+    }
+    #cta .container { position: relative; z-index: 2; }
+
+    /* ============================================================
+       FOOTER LINK HOVER
+       ============================================================ */
+    .footer-menu .menu-list a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s, padding-left 0.2s;
+      display: inline-block;
+    }
+    .footer-menu .menu-list a:hover { color: #0d6efd; padding-left: 4px; }
+
+    .social-links .social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      transition: background 0.22s, transform 0.22s;
+    }
+    .social-links .social a:hover {
+      background: rgba(13, 110, 253, 0.12);
+      transform: translateY(-3px);
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 768px) {
+      .page-hero { height: 400px; }
+      .dual-image-section { height: 300px; }
+      .dual-image-side.left:hover,
+      .dual-image-side.right:hover { width: 72%; }
+      .stat-item:not(:last-child)::after { display: none; }
+      .cta-strip { padding: 24px 20px; }
+    }
   </style>
 </head>
 
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="check-circle" viewBox="0 0 512 512">
-      <path fill="currentColor" d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248s248-111.033 248-248S392.967 8 256 8m0 48c110.532 0 200 89.451 200 200c0 110.532-89.451 200-200 200c-110.532 0-200-89.451-200-200c0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971" />
+      <path fill="currentColor" d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248s248-111.033 248-248S392.967 8 256 8m0 48c110.532 0 200 89.451 200 200c0 110.532-89.451 200-200 200c-110.532 0-200-89.451-200-200c0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971"/>
     </symbol>
     <symbol id="navbar-icon" viewBox="0 0 16 16">
-      <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z" />
-    </symbol>
-    <symbol id="arrow-down" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+      <path d="M14 10.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0 0 1h7a.5.5 0 0 0 .5-.5zm0-3a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0 0 1h11a.5.5 0 0 0 .5-.5z"/>
     </symbol>
     <symbol id="search" viewBox="0 0 512 512">
-      <path fill="currentColor" d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0 0 34.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 0 0 327.3 362.6l94.09 94.09a25 25 0 0 0 35.3-35.3M97.92 222.72a124.8 124.8 0 1 1 124.8 124.8a124.95 124.95 0 0 1-124.8-124.8" />
+      <path fill="currentColor" d="M456.69 421.39L362.6 327.3a173.81 173.81 0 0 0 34.84-104.58C397.44 126.38 319.06 48 222.72 48S48 126.38 48 222.72s78.38 174.72 174.72 174.72A173.81 173.81 0 0 0 327.3 362.6l94.09 94.09a25 25 0 0 0 35.3-35.3M97.92 222.72a124.8 124.8 0 1 1 124.8 124.8a124.95 124.95 0 0 1-124.8-124.8"/>
     </symbol>
     <symbol id="phone" viewBox="0 0 24 24">
-      <path fill="currentColor" fill-rule="evenodd" d="M4.718 3.092c1.226-1.291 3.254-1.05 4.268.384l1.26 1.784c.811 1.147.743 2.74-.225 3.76l-.245.257a.25.25 0 0 0-.002.006c-.013.036-.045.152-.013.372c.067.455.418 1.381 1.846 2.884c1.432 1.508 2.3 1.863 2.703 1.929a.608.608 0 0 0 .294-.007l.408-.43c.874-.92 2.236-1.101 3.335-.469l1.91 1.1c1.633.94 2.013 3.239.708 4.613l-1.42 1.495c-.443.467-1.048.866-1.795.94c-1.824.18-6.049-.055-10.478-4.719c-4.134-4.351-4.919-8.136-5.018-9.985l.666-.036l-.666.036c-.049-.914.358-1.697.894-2.262z" clip-rule="evenodd" />
+      <path fill="currentColor" fill-rule="evenodd" d="M4.718 3.092c1.226-1.291 3.254-1.05 4.268.384l1.26 1.784c.811 1.147.743 2.74-.225 3.76l-.245.257a.25.25 0 0 0-.002.006c-.013.036-.045.152-.013.372c.067.455.418 1.381 1.846 2.884c1.432 1.508 2.3 1.863 2.703 1.929a.608.608 0 0 0 .294-.007l.408-.43c.874-.92 2.236-1.101 3.335-.469l1.91 1.1c1.633.94 2.013 3.239.708 4.613l-1.42 1.495c-.443.467-1.048.866-1.795.94c-1.824.18-6.049-.055-10.478-4.719c-4.134-4.351-4.919-8.136-5.018-9.985l.666-.036l-.666.036c-.049-.914.358-1.697.894-2.262z" clip-rule="evenodd"/>
     </symbol>
     <symbol id="clock" viewBox="0 0 24 24">
-      <path fill="currentColor" fill-rule="evenodd" d="M12 2.75a9.25 9.25 0 1 0 0 18.5a9.25 9.25 0 0 0 0-18.5M1.25 12C1.25 6.063 6.063 1.25 12 1.25S22.75 6.063 22.75 12S17.937 22.75 12 22.75S1.25 17.937 1.25 12M12 7.25a.75.75 0 0 1 .75.75v3.69l2.28 2.28a.75.75 0 1 1-1.06 1.06l-2.5-2.5a.75.75 0 0 1-.22-.53V8a.75.75 0 0 1 .75-.75" clip-rule="evenodd" />
+      <path fill="currentColor" fill-rule="evenodd" d="M12 2.75a9.25 9.25 0 1 0 0 18.5a9.25 9.25 0 0 0 0-18.5M1.25 12C1.25 6.063 6.063 1.25 12 1.25S22.75 6.063 22.75 12S17.937 22.75 12 22.75S1.25 17.937 1.25 12M12 7.25a.75.75 0 0 1 .75.75v3.69l2.28 2.28a.75.75 0 1 1-1.06 1.06l-2.5-2.5a.75.75 0 0 1-.22-.53V8a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/>
     </symbol>
     <symbol id="location" viewBox="0 0 24 24">
-      <path fill="currentColor" fill-rule="evenodd" d="M3.25 10.143C3.25 5.244 7.155 1.25 12 1.25c4.845 0 8.75 3.994 8.75 8.893c0 2.365-.674 4.905-1.866 7.099c-1.19 2.191-2.928 4.095-5.103 5.112a4.2 4.2 0 0 1-3.562 0c-2.175-1.017-3.913-2.92-5.103-5.112c-1.192-2.194-1.866-4.734-1.866-7.099M12 2.75c-3.992 0-7.25 3.297-7.25 7.393c0 2.097.603 4.392 1.684 6.383c1.082 1.993 2.612 3.624 4.42 4.469a2.7 2.7 0 0 0 2.291 0c1.809-.845 3.339-2.476 4.421-4.469c1.081-1.99 1.684-4.286 1.684-6.383c0-4.096-3.258-7.393-7.25-7.393m0 5a2.25 2.25 0 1 0 0 4.5a2.25 2.25 0 0 0 0-4.5M8.25 10a3.75 3.75 0 1 1 7.5 0a3.75 3.75 0 0 1-7.5 0" clip-rule="evenodd" />
+      <path fill="currentColor" fill-rule="evenodd" d="M3.25 10.143C3.25 5.244 7.155 1.25 12 1.25c4.845 0 8.75 3.994 8.75 8.893c0 2.365-.674 4.905-1.866 7.099c-1.19 2.191-2.928 4.095-5.103 5.112a4.2 4.2 0 0 1-3.562 0c-2.175-1.017-3.913-2.92-5.103-5.112c-1.192-2.194-1.866-4.734-1.866-7.099M12 2.75c-3.992 0-7.25 3.297-7.25 7.393c0 2.097.603 4.392 1.684 6.383c1.082 1.993 2.612 3.624 4.42 4.469a2.7 2.7 0 0 0 2.291 0c1.809-.845 3.339-2.476 4.421-4.469c1.081-1.99 1.684-4.286 1.684-6.383c0-4.096-3.258-7.393-7.25-7.393m0 5a2.25 2.25 0 1 0 0 4.5a2.25 2.25 0 0 0 0-4.5M8.25 10a3.75 3.75 0 1 1 7.5 0a3.75 3.75 0 0 1-7.5 0" clip-rule="evenodd"/>
     </symbol>
     <symbol id="email" viewBox="0 0 24 24">
-      <path fill="currentColor" fill-rule="evenodd" d="M9.944 3.25h4.112c1.838 0 3.294 0 4.433.153c1.172.158 2.121.49 2.87 1.238c.748.749 1.08 1.698 1.238 2.87c.153 1.14.153 2.595.153 4.433v.112c0 1.838 0 3.294-.153 4.433c-.158 1.172-.49 2.121-1.238 2.87c-.749.748-1.698 1.08-2.87 1.238c-1.14.153-2.595.153-4.433.153H9.944c-1.838 0-3.294 0-4.433-.153c-1.172-.158-2.121-.49-2.87-1.238c-.748-.749-1.08-1.698-1.238-2.87c-.153-1.14-.153-2.595-.153-4.433v-.112c0-1.838 0-3.294.153-4.433c.158-1.172.49-2.121 1.238-2.87c.749-.748 1.698-1.08 2.87-1.238c1.14-.153 2.595-.153 4.433-.153M5.71 4.89c-1.006.135-1.586.389-2.01.812c-.422.423-.676 1.003-.811 2.009c-.138 1.028-.14 2.382-.14 4.289c0 1.907.002 3.262.14 4.29c.135 1.005.389 1.585.812 2.008c.423.423 1.003.677 2.009.812c1.028.138 2.382.14 4.289.14h4c1.907 0 3.262-.002 4.29-.14c1.005-.135 1.585-.389 2.008-.812c.423-.423.677-1.003.812-2.009c.138-1.028.14-2.382.14-4.289c0-1.907-.002-3.261-.14-4.29c-.135-1.005-.389-1.585-.812-2.008c-.423-.423-1.003-.677-2.009-.812c-1.027-.138-2.382-.14-4.289-.14h-4c-1.907 0-3.261.002-4.29.14m-.287 2.63a.75.75 0 0 1 1.056-.096L8.64 9.223c.933.777 1.58 1.315 2.128 1.667c.529.34.888.455 1.233.455c.345 0 .704-.114 1.233-.455c.547-.352 1.195-.89 2.128-1.667l2.159-1.8a.75.75 0 1 1 .96 1.153l-2.196 1.83c-.887.74-1.605 1.338-2.24 1.746c-.66.425-1.303.693-2.044.693c-.741 0-1.384-.269-2.045-.693c-.634-.408-1.352-1.007-2.239-1.745L5.52 8.577a.75.75 0 0 1-.096-1.057" clip-rule="evenodd" />
-    </symbol>
-    <symbol id="facebook" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z" />
-    </symbol>
-    <symbol id="instagram" viewBox="0 0 256 256">
-      <path fill="currentColor" d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z" />
-    </symbol>
-    <symbol id="twitter" viewBox="0 0 24 24">
-      <path fill="currentColor" d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23Z" />
-    </symbol>
-    <symbol id="linkedin" viewBox="0 0 512 512">
-      <path fill="currentColor" d="M444.17 32H70.28C49.85 32 32 46.7 32 66.89v374.72C32 461.91 49.85 480 70.28 480h373.78c20.54 0 35.94-18.21 35.94-38.39V66.89C480.12 46.7 464.6 32 444.17 32Zm-273.3 373.43h-64.18V205.88h64.18ZM141 175.54h-.46c-20.54 0-33.84-15.29-33.84-34.43c0-19.49 13.65-34.42 34.65-34.42s33.85 14.82 34.31 34.42c-.01 19.14-13.31 34.43-34.66 34.43Zm264.43 229.89h-64.18V296.32c0-26.14-9.34-44-32.56-44c-17.74 0-28.24 12-32.91 23.69c-1.75 4.2-2.22 9.92-2.22 15.76v113.66h-64.18V205.88h64.18v27.77c9.34-13.3 23.93-32.44 57.88-32.44c42.13 0 74 27.77 74 87.64Z" />
-    </symbol>
-    <symbol id="youtube" viewBox="0 0 32 32">
-      <path fill="currentColor" d="M29.41 9.26a3.5 3.5 0 0 0-2.47-2.47C24.76 6.2 16 6.2 16 6.2s-8.76 0-10.94.59a3.5 3.5 0 0 0-2.47 2.47A36.13 36.13 0 0 0 2 16a36.13 36.13 0 0 0 .59 6.74a3.5 3.5 0 0 0 2.47 2.47c2.18.59 10.94.59 10.94.59s8.76 0 10.94-.59a3.5 3.5 0 0 0 2.47-2.47A36.13 36.13 0 0 0 30 16a36.13 36.13 0 0 0-.59-6.74ZM13.2 20.2v-8.4l7.27 4.2Z" />
+      <path fill="currentColor" fill-rule="evenodd" d="M9.944 3.25h4.112c1.838 0 3.294 0 4.433.153c1.172.158 2.121.49 2.87 1.238c.748.749 1.08 1.698 1.238 2.87c.153 1.14.153 2.595.153 4.433v.112c0 1.838 0 3.294-.153 4.433c-.158 1.172-.49 2.121-1.238 2.87c-.749.748-1.698 1.08-2.87 1.238c-1.14.153-2.595.153-4.433.153H9.944c-1.838 0-3.294 0-4.433-.153c-1.172-.158-2.121-.49-2.87-1.238c-.748-.749-1.08-1.698-1.238-2.87c-.153-1.14-.153-2.595-.153-4.433v-.112c0-1.838 0-3.294.153-4.433c.158-1.172.49-2.121 1.238-2.87c.749-.748 1.698-1.08 2.87-1.238c1.14-.153 2.595-.153 4.433-.153M5.71 4.89c-1.006.135-1.586.389-2.01.812c-.422.423-.676 1.003-.811 2.009c-.138 1.028-.14 2.382-.14 4.289c0 1.907.002 3.262.14 4.29c.135 1.005.389 1.585.812 2.008c.423.423 1.003.677 2.009.812c1.028.138 2.382.14 4.289.14h4c1.907 0 3.262-.002 4.29-.14c1.005-.135 1.585-.389 2.008-.812c.423-.423.677-1.003.812-2.009c.138-1.028.14-2.382.14-4.289c0-1.907-.002-3.261-.14-4.29c-.135-1.005-.389-1.585-.812-2.008c-.423-.423-1.003-.677-2.009-.812c-1.027-.138-2.382-.14-4.289-.14h-4c-1.907 0-3.261.002-4.29.14m-.287 2.63a.75.75 0 0 1 1.056-.096L8.64 9.223c.933.777 1.58 1.315 2.128 1.667c.529.34.888.455 1.233.455c.345 0 .704-.114 1.233-.455c.547-.352 1.195-.89 2.128-1.667l2.159-1.8a.75.75 0 1 1 .96 1.153l-2.196 1.83c-.887.74-1.605 1.338-2.24 1.746c-.66.425-1.303.693-2.044.693c-.741 0-1.384-.269-2.045-.693c-.634-.408-1.352-1.007-2.239-1.745L5.52 8.577a.75.75 0 0 1-.096-1.057" clip-rule="evenodd"/>
     </symbol>
     <symbol id="pen-new-round" viewBox="0 0 24 24">
-      <path fill="currentColor" fill-rule="evenodd" d="M1.25 12C1.25 6.063 6.063 1.25 12 1.25a.75.75 0 0 1 0 1.5A9.25 9.25 0 1 0 21.25 12a.75.75 0 0 1 1.5 0c0 5.937-4.813 10.75-10.75 10.75S1.25 17.937 1.25 12m15.52-9.724a3.503 3.503 0 0 1 4.954 4.953l-6.648 6.649c-.371.37-.604.604-.863.806a5.34 5.34 0 0 1-.987.61c-.297.141-.61.245-1.107.411l-2.905.968a1.492 1.492 0 0 1-1.887-1.887l.968-2.905c.166-.498.27-.81.411-1.107c.167-.35.372-.68.61-.987c.202-.26.435-.492.806-.863z" clip-rule="evenodd" />
+      <path fill="currentColor" fill-rule="evenodd" d="M1.25 12C1.25 6.063 6.063 1.25 12 1.25a.75.75 0 0 1 0 1.5A9.25 9.25 0 1 0 21.25 12a.75.75 0 0 1 1.5 0c0 5.937-4.813 10.75-10.75 10.75S1.25 17.937 1.25 12m15.52-9.724a3.503 3.503 0 0 1 4.954 4.953l-6.648 6.649c-.371.37-.604.604-.863.806a5.34 5.34 0 0 1-.987.61c-.297.141-.61.245-1.107.411l-2.905.968a1.492 1.492 0 0 1-1.887-1.887l.968-2.905c.166-.498.27-.81.411-1.107c.167-.35.372-.68.61-.987c.202-.26.435-.492.806-.863z" clip-rule="evenodd"/>
     </symbol>
+    <symbol id="facebook" viewBox="0 0 24 24"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></symbol>
+    <symbol id="instagram" viewBox="0 0 256 256"><path fill="currentColor" d="M128 80a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48Zm0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32Zm48-136H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56Zm40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40ZM192 76a12 12 0 1 1-12-12a12 12 0 0 1 12 12Z"/></symbol>
+    <symbol id="twitter" viewBox="0 0 24 24"><path fill="currentColor" d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23Z"/></symbol>
+    <symbol id="linkedin" viewBox="0 0 512 512"><path fill="currentColor" d="M444.17 32H70.28C49.85 32 32 46.7 32 66.89v374.72C32 461.91 49.85 480 70.28 480h373.78c20.54 0 35.94-18.21 35.94-38.39V66.89C480.12 46.7 464.6 32 444.17 32Zm-273.3 373.43h-64.18V205.88h64.18ZM141 175.54h-.46c-20.54 0-33.84-15.29-33.84-34.43c0-19.49 13.65-34.42 34.65-34.42s33.85 14.82 34.31 34.42c-.01 19.14-13.31 34.43-34.66 34.43Zm264.43 229.89h-64.18V296.32c0-26.14-9.34-44-32.56-44c-17.74 0-28.24 12-32.91 23.69c-1.75 4.2-2.22 9.92-2.22 15.76v113.66h-64.18V205.88h64.18v27.77c9.34-13.3 23.93-32.44 57.88-32.44c42.13 0 74 27.77 74 87.64Z"/></symbol>
+    <symbol id="youtube" viewBox="0 0 32 32"><path fill="currentColor" d="M29.41 9.26a3.5 3.5 0 0 0-2.47-2.47C24.76 6.2 16 6.2 16 6.2s-8.76 0-10.94.59a3.5 3.5 0 0 0-2.47 2.47A36.13 36.13 0 0 0 2 16a36.13 36.13 0 0 0 .59 6.74a3.5 3.5 0 0 0 2.47 2.47c2.18.59 10.94.59 10.94.59s8.76 0 10.94-.59a3.5 3.5 0 0 0 2.47-2.47A36.13 36.13 0 0 0 30 16a36.13 36.13 0 0 0-.59-6.74ZM13.2 20.2v-8.4l7.27 4.2Z"/></symbol>
   </svg>
 
   <!-- ===== HEADER ===== -->
@@ -158,7 +506,7 @@
       <div class="container">
         <div class="d-flex justify-content-between align-items-center py-3">
           <a class="navbar-brand" href="index.html">
-            <span style="font-size:1.4rem; font-weight:700; color:#0d6efd;"><img src="images/assets/elpasotransparentlogo.png" style="height:95px; width:95px"alt="Elpaso Cleaning Solutions" style="max-height: 40px;"> </span>
+            <img src="images/assets/elpasotransparentlogo.png" style="height:95px; width:95px" alt="Elpaso Cleaning Solutions">
           </a>
           <ul class="info d-flex flex-wrap justify-content-end align-items-center list-unstyled m-0">
             <li class="phone text-black fw-medium text-capitalize d-flex align-items-center ms-4">
@@ -180,32 +528,15 @@
         </button>
         <div class="header-bottom offcanvas offcanvas-end" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
           <div class="offcanvas-header px-4 mt-3 mb-1">
-            <button type="button" class="btn-close btn-close-black shadow-none" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+            <button type="button" class="btn-close btn-close-black shadow-none" data-bs-dismiss="offcanvas"
+              aria-label="Close" data-bs-target="#bdNavbar"></button>
           </div>
           <div class="offcanvas-body align-items-center justify-content-center">
             <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item px-3 py-1 py-lg-0">
-                <a class="nav-link p-0" href="index.html">Home</a>
-              </li>
-              <li class="nav-item px-3 py-1 py-lg-0 dropdown">
-               
-                <ul class="dropdown-menu dropdown-menu-end animate slide mt-3 border-0 shadow">
-                  <li><a href="about.html" class="dropdown-item">About Us</a></li>
-                  <li><a href="services.html" class="dropdown-item">Our Services</a></li>
-                  <li><a href="contact.html" class="dropdown-item">Contact</a></li>
-                </ul>
-              </li>
-              <li class="nav-item px-3 py-1 py-lg-0">
-                <a class="nav-link active p-0" aria-current="page" href="about.html">About</a>
-              </li>
-              <li class="nav-item px-3 py-1 py-lg-0">
-                <a class="nav-link p-0" href="services.html">Services</a>
-              </li>
-             
-              <li class="nav-item px-3 py-1 py-lg-0">
-                <a class="nav-link p-0" href="contact.html">Contact</a>
-              </li>
-              
+              <li class="nav-item px-3 py-1 py-lg-0"><a class="nav-link p-0" href="index.html">Home</a></li>
+              <li class="nav-item px-3 py-1 py-lg-0"><a class="nav-link active p-0" aria-current="page" href="about.html">About</a></li>
+              <li class="nav-item px-3 py-1 py-lg-0"><a class="nav-link p-0" href="services.html">Services</a></li>
+              <li class="nav-item px-3 py-1 py-lg-0"><a class="nav-link p-0" href="contact.html">Contact</a></li>
               <li class="nav-item search-dropdown py-3 py-lg-0 ms-3 ms-lg-5 dropdown">
                 <a class="nav-link p-0 search dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                   <svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg>
@@ -226,103 +557,113 @@
     </nav>
   </header>
 
-  <!-- ===== PAGE HERO ===== -->
+  <!-- ============================================================
+       PAGE HERO — CENTERED ANIMATED TITLE
+       ============================================================ -->
   <section class="page-hero">
-    <div class="container">
-      <nav aria-label="breadcrumb" class="mb-3">
-        <ol class="breadcrumb mb-0">
+    <div class="page-hero-bg"></div>
+    <!--<div class="page-hero-overlay"></div>-->
+    <div class="page-hero-content">
+      <nav aria-label="breadcrumb">
+        <!--<ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">About Us</li>
-        </ol>
+        </ol>-->
       </nav>
-      <h1 class="display-4 fw-bold mb-2">About Us</h1>
-      <p class="text-white-50 mb-0 fs-5">Redefining cleanliness — one space at a time.</p>
+      <!--<div class="hero-eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Our Story, Mission &amp; Values
+      </div>-->
+      <h1>About <span class="highlight">Elpaso</span> Cleaning</h1>
+      <!--<p>Redefining cleanliness — one space at a time. Born in the community, built for the community.</p>-->
+      <div class="hero-cta-row">
+        <!--<a href="contact.html" class="glass-btn">Get a Free Quote &rarr;</a>
+        <a href="services.html" class="glass-btn-outline">Our Services</a>-->
+      </div>
     </div>
   </section>
 
-  <!-- ===== STATS BAR =====
-  <section class="stats-bar">
+  <!-- ============================================================
+       STATS STRIP
+       ============================================================ -->
+  <!--<div class="stats-strip">
     <div class="container">
-      <div class="row g-4">
-        <div class="col-6 col-md-3">
-          <div class="stat-item">
-            <h2>3+</h2>
-            <p>Years of Experience</p>
-          </div>
+      <div class="row">
+        <div class="col-6 col-md-3 stat-item py-2">
+          <div class="stat-number">3+</div>
+          <div class="stat-label">Years of Experience</div>
         </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-item">
-            <h2>6</h2>
-            <p>Core Service Categories</p>
-          </div>
+        <div class="col-6 col-md-3 stat-item py-2">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Cleans Completed</div>
         </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-item">
-            <h2>4</h2>
-            <p>Industries Served</p>
-          </div>
+        <div class="col-6 col-md-3 stat-item py-2">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Services Offered</div>
         </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-item">
-            <h2>100%</h2>
-            <p>Community Commitment</p>
-          </div>
+        <div class="col-6 col-md-3 stat-item py-2">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Community Commitment</div>
         </div>
       </div>
     </div>
-  </section>-->
+  </div>-->
 
-  <!-- ===== WHO WE ARE ===== -->
+  <!-- ============================================================
+       WHO WE ARE
+       ============================================================ -->
   <section class="padding-small" id="about-us">
     <div class="container">
       <div class="row g-md-5 align-items-center">
         <div class="col-lg-5 mb-4 mb-lg-0">
-          <img class="img-fluid rounded-3 shadow" src="images/assets/elwash3.png" alt="Elpaso Cleaning Team">
+          <div class="imageblock">
+            <img src="images/assets/residentialclean.png" alt="Elpaso Cleaning Team" class="img-fluid rounded-3 shadow">
+          </div>
         </div>
         <div class="col-lg-7">
           <h6><span class="text-primary">|</span> Who We Are</h6>
-          <h3 class="display-6 fw-semibold mb-4">Elpaso Cleaning Solutions & Services</h3>
-          <p>Welcome to Elpaso Cleaning Solutions & Services — where innovation meets tradition, and cleanliness becomes an experience. In a dynamic era where demand for specialised cleaning services is on the rise, Elpaso emerges as a beacon of convenience and quality in Rustenburg and its surrounding communities.</p>
+          <h3 class="display-6 fw-semibold mb-4">Elpaso Cleaning Solutions &amp; Services</h3>
+          <p>Welcome to Elpaso Cleaning Solutions &amp; Services — where innovation meets tradition, and cleanliness becomes an experience. In a dynamic era where demand for specialised cleaning services is on the rise, Elpaso emerges as a beacon of convenience and quality in Rustenburg and its surrounding communities.</p>
           <p>We bring forth a unique blend of cutting-edge practices, eco-friendly solutions, and personalised care to redefine the standards of cleanliness in both the residential and commercial landscapes. From a single household to a full industrial facility, Elpaso delivers results you can see — and trust.</p>
           <div class="row g-3 mt-2">
             <div class="col-sm-6">
               <div class="d-flex align-items-start">
-                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
+                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="18" height="18"><use xlink:href="#check-circle"></use></svg>
                 <span class="fw-medium">Eco-friendly cleaning products</span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="d-flex align-items-start">
-                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
-                <span class="fw-medium">Fixed & mobile service solutions</span>
+                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="18" height="18"><use xlink:href="#check-circle"></use></svg>
+                <span class="fw-medium">Fixed &amp; mobile service solutions</span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="d-flex align-items-start">
-                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
-                <span class="fw-medium">Residential, commercial & industrial</span>
+                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="18" height="18"><use xlink:href="#check-circle"></use></svg>
+                <span class="fw-medium">Residential, commercial &amp; industrial</span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="d-flex align-items-start">
-                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
-                <span class="fw-medium">Community-focused & locally owned</span>
+                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="18" height="18"><use xlink:href="#check-circle"></use></svg>
+                <span class="fw-medium">Community-focused &amp; locally owned</span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="d-flex align-items-start">
-                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
+                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="18" height="18"><use xlink:href="#check-circle"></use></svg>
                 <span class="fw-medium">Customised quotes for every client</span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="d-flex align-items-start">
-                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
+                <svg class="text-primary me-2 mt-1 flex-shrink-0" width="18" height="18"><use xlink:href="#check-circle"></use></svg>
                 <span class="fw-medium">Sustainable, responsible practices</span>
               </div>
             </div>
           </div>
-          <a href="index.html" class="btn btn-primary btn-slide hover-slide-right mt-4">
+          <a href="contact.html" class="btn btn-primary btn-slide hover-slide-right mt-4">
             <span>Get a Free Quote</span>
           </a>
         </div>
@@ -330,8 +671,42 @@
     </div>
   </section>
 
-  <!-- ===== OUR STORY TIMELINE ===== -->
-  <section class="padding-small bg-light">
+  <!-- ============================================================
+       DUAL DIAGONAL IMAGE EFFECT
+       ============================================================ -->
+  <div class="dual-image-section">
+    <div class="dual-image-side left">
+      <img src="images/assets/hero60.png" alt="Industrial and commercial cleaning">
+      <div class="dual-label">
+        <div class="label-icon">
+          <!-- Factory / industrial icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3"/></svg>
+        </div>
+        Industrial &amp; Commercial
+      </div>
+    </div>
+
+    <div class="dual-divider-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Hover to explore
+    </div>
+
+    <div class="dual-image-side right">
+      <img src="images/assets/elsneaker.png" alt="Sneaker and laundry care">
+      <div class="dual-label">
+        <div class="label-icon">
+          <!-- Home icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        Residential &amp; Laundry
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       OUR STORY TIMELINE
+       ============================================================ -->
+  <section class="padding-small" style="background: #f8faff;">
     <div class="container">
       <div class="row justify-content-center mb-5">
         <div class="col-lg-7 text-center">
@@ -345,13 +720,13 @@
           <div class="timeline">
             <div class="timeline-item">
               <div class="timeline-dot"></div>
-              <h5>2020 — The Beginning: Ishy's Car Wash & Sneaker Laundry</h5>
+              <h5>2020 — The Beginning: Ishy's Car Wash &amp; Sneaker Laundry</h5>
               <p>It all started as a grassroots, informal endeavour. Ishmael Keogatile began offering car wash and sneaker laundry services in the community, building trust and gaining invaluable hands-on experience along the way. The positive response from neighbours and locals proved there was a real need for quality, accessible cleaning services.</p>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot"></div>
               <h5>2023 — Formalising the Vision: Elpaso is Born</h5>
-              <p>In October 2023, driven by a burning desire to revolutionise the cleaning industry, Ishmael laid the cornerstone of Elpaso Cleaning Solutions & Services. Recognising the barriers that confined quality services to affluent areas, the mission was crystal clear — break those barriers and make convenience and excellence accessible to all.</p>
+              <p>In October 2023, driven by a burning desire to revolutionise the cleaning industry, Ishmael laid the cornerstone of Elpaso Cleaning Solutions &amp; Services. Recognising the barriers that confined quality services to affluent areas, the mission was crystal clear — break those barriers and make convenience and excellence accessible to all.</p>
             </div>
             <div class="timeline-item">
               <div class="timeline-dot"></div>
@@ -369,38 +744,43 @@
     </div>
   </section>
 
-  <!-- ===== MISSION, VISION, OBJECTIVES ===== -->
+  <!-- ============================================================
+       MISSION, VISION & OBJECTIVES
+       ============================================================ -->
   <section class="padding-small">
     <div class="container">
       <div class="row justify-content-center mb-5">
         <div class="col-lg-7 text-center">
           <h6><span class="text-primary">|</span> Company Strategy</h6>
-          <h3 class="display-6 fw-semibold">Mission, Vision & Goals</h3>
+          <h3 class="display-6 fw-semibold">Mission, Vision &amp; Goals</h3>
         </div>
       </div>
       <div class="row g-4">
         <div class="col-lg-4">
-          <div class="value-card bg-white">
+          <div class="value-card">
             <div class="value-icon">
-              <svg class="text-primary" width="28" height="28"><use xlink:href="#check-circle"></use></svg>
+              <!-- Target / mission icon -->
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             </div>
             <h5 class="fw-bold mb-3">Our Mission</h5>
             <p class="text-muted mb-0">We are dedicated to delivering exceptional and holistic cleaning services that redefine cleanliness standards. Through a blend of fixed and mobile solutions, we aim to create a cleaner, safer, and more vibrant environment for individuals, households, and businesses.</p>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="value-card bg-white">
+          <div class="value-card">
             <div class="value-icon">
-              <svg class="text-primary" width="28" height="28"><use xlink:href="#check-circle"></use></svg>
+              <!-- Eye / vision icon -->
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             </div>
             <h5 class="fw-bold mb-3">Our Vision</h5>
             <p class="text-muted mb-0">To be the premier provider of comprehensive cleaning solutions — setting the standard for excellence and innovation, and making a lasting positive impact on our community. We envision a Rustenburg where every space, from the smallest home to the largest factory, shines with pride.</p>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="value-card bg-white">
+          <div class="value-card">
             <div class="value-icon">
-              <svg class="text-primary" width="28" height="28"><use xlink:href="#check-circle"></use></svg>
+              <!-- Star / objectives icon -->
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             </div>
             <h5 class="fw-bold mb-3">Our Objectives</h5>
             <p class="text-muted mb-0">To ensure customer satisfaction through exceptional, customer-focused services. We aim to lead through innovation, continuously embracing the latest industry trends. We are committed to creating a positive community impact through outreach programs and sustainable practices that support long-term growth and wellbeing.</p>
@@ -408,11 +788,16 @@
         </div>
       </div>
 
-      <!-- Goals -->
+      <!-- Goals strip -->
       <div class="row mt-5">
         <div class="col-lg-10 mx-auto">
           <div class="cta-strip">
-            <h5 class="fw-bold mb-3">Our Goals</h5>
+            <h5 class="fw-bold mb-4 d-flex align-items-center gap-2">
+              <span style="display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; background:rgba(13,110,253,0.10); border-radius:8px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </span>
+              Our Goals
+            </h5>
             <div class="row g-3">
               <div class="col-md-6">
                 <div class="d-flex align-items-start">
@@ -445,89 +830,25 @@
     </div>
   </section>
 
-  <!-- ===== TEAM ===== 
-  <section class="padding-small bg-light">
-    <div class="container">
-      <div class="row justify-content-center mb-5">
-        <div class="col-lg-7 text-center">
-          <h6><span class="text-primary">|</span> Our Team</h6>
-          <h3 class="display-6 fw-semibold">Meet the People Behind Elpaso</h3>
-          <p class="text-muted">Driven by passion, expertise, and a commitment to our community.</p>
-        </div>
-      </div>
-      <div class="row justify-content-center g-4">
-        <div class="col-lg-5 col-md-8">
-          <div class="team-card">
-            <img src="images/about.png" alt="Ishmael Keogatile - CEO & Founder">
-            <div class="team-card-body">
-              <h5>Ishmael Keogatile</h5>
-              <p class="role">CEO & Founder</p>
-              <p class="text-muted mb-3">Meet Ishmael Keogatile — the visionary driving force behind Elpaso Cleaning Solutions & Services. His journey is defined by a rich tapestry of skills and experiences that make him a standout leader in the cleaning industry.</p>
-              <p class="text-muted mb-3">With a background in sales and management, Ishmael brings strategic thinking and problem-solving to the forefront of Elpaso's operations. His experience in retail, telemarketing, and fitness sales reflects his versatility, while his strong communication skills and passion for innovation drive the company forward.</p>
-              <p class="text-muted mb-0">As founder, Ishmael is redefining convenience and cleanliness with a focus on excellence and community impact — ensuring that quality services reach every doorstep, not just affluent areas.</p>
-              <div class="d-flex gap-3 mt-4">
-                <a href="#" class="text-primary"><svg width="22" height="22"><use xlink:href="#facebook"></use></svg></a>
-                <a href="#" class="text-primary"><svg width="22" height="22"><use xlink:href="#linkedin"></use></svg></a>
-                <a href="#" class="text-primary"><svg width="22" height="22"><use xlink:href="#instagram"></use></svg></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 d-flex flex-column justify-content-center ps-lg-5">
-          <h6><span class="text-primary">|</span> Leadership</h6>
-          <h4 class="fw-bold mb-3">A Visionary Leader in Cleaning Innovation</h4>
-          <p>Ishmael's story is one of determination, community spirit, and entrepreneurial grit. What began as an informal car wash and sneaker laundry service became the foundation for a growing cleaning enterprise that is transforming spaces and creating opportunity in Rustenburg.</p>
-          <p>His belief is simple: quality cleaning should not be a luxury reserved for the wealthy. With Elpaso, he has made it his mission to bring world-class cleaning standards to townships and communities that deserve better — and he does it every single day.</p>
-          <div class="row g-3 mt-1">
-            <div class="col-sm-6">
-              <div class="d-flex align-items-center">
-                <svg class="text-primary me-2 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
-                <span class="fw-medium">Sales & Management Background</span>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="d-flex align-items-center">
-                <svg class="text-primary me-2 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
-                <span class="fw-medium">Retail & Telemarketing Experience</span>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="d-flex align-items-center">
-                <svg class="text-primary me-2 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
-                <span class="fw-medium">Community Outreach Champion</span>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="d-flex align-items-center">
-                <svg class="text-primary me-2 flex-shrink-0" width="20" height="20"><use xlink:href="#check-circle"></use></svg>
-                <span class="fw-medium">Innovation-Driven Entrepreneur</span>
-              </div>
-            </div>
-          </div>
-          <a href="index.html" class="btn btn-primary btn-slide hover-slide-right mt-4 align-self-start">
-            <span>View Our Services</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>-->
-
-  <!-- ===== CTA ===== -->
-  <section id="cta" style="background-image: url(images/assets/hero55.png); background-size: cover; background-repeat: no-repeat; background-position: center">
+  <!-- ============================================================
+       CTA SECTION — with strong overlay
+       ============================================================ -->
+  <section id="cta"
+    style="background-image: url(images/assets/hero55.png); background-size: cover; background-repeat: no-repeat; background-position: center;">
     <div class="container padding-medium">
       <div class="row g-lg-5 align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0">
-          <div class="border-dotted rounded-4 p-5">
+          <div class="rounded-4 p-5" style="border: 2px dashed rgba(255,255,255,0.30); background: rgba(255,255,255,0.06); backdrop-filter: blur(6px);">
             <h2 class="display-4 fw-bold text-white">Work With Us</h2>
             <p class="fs-3 fw-semibold text-white text-capitalize">Let's create cleaner, safer spaces together</p>
-            <p class="text-white">Whether you're a homeowner, business owner, or facilities manager, Elpaso has the right solution for you. Contact Ishmael and his team today.</p>
+            <p class="text-white" style="opacity:0.88;">Whether you're a homeowner, business owner, or facilities manager, Elpaso has the right solution for you. Contact Ishmael and his team today.</p>
           </div>
         </div>
         <div class="col-lg-6 mb-5 mb-lg-0">
-          <h6 class="text-white">Get in touch</h6>
+          <h6 class="text-white" style="opacity:0.78; text-transform:uppercase; font-size:11px; letter-spacing:0.1em;">Get in touch</h6>
           <h2 class="display-4 fw-bold text-white">Elpaso Cleaning Solutions</h2>
-          <p class="text-white">Based in Rustenburg, North West. Serving residential, commercial, and industrial clients across the region with pride and professionalism.</p>
-          <ul class="d-flex flex-wrap align-items-center list-unstyled m-0">
+          <p class="text-white" style="opacity:0.88;">Based in Rustenburg, North West. Serving residential, commercial, and industrial clients across the region with pride and professionalism.</p>
+          <ul class="d-flex flex-wrap align-items-center list-unstyled m-0 mb-4">
             <li class="phone text-white text-capitalize d-flex align-items-center me-4">
               <svg class="text-primary me-1" width="20" height="20"><use xlink:href="#phone"></use></svg> 069 306 0334
             </li>
@@ -535,6 +856,7 @@
               <svg class="text-primary me-1" width="20" height="20"><use xlink:href="#pen-new-round"></use></svg> Get a free quote
             </li>
           </ul>
+          <a href="contact.html" class="glass-btn">Book a Clean &rarr;</a>
         </div>
       </div>
     </div>
@@ -550,30 +872,10 @@
               <span style="font-size:1.1rem; font-weight:700; color:#0d6efd;">ELPASO <span style="color:#333;">Cleaning</span></span>
             </a>
             <ul class="menu-list d-flex flex-column list-unstyled mt-3">
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="index.html"> Home</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="elpaso_about.html"> About Us</a>
-              </li>
-              <!--<li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="index.html"> Testimonials</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="index.html"> Cleaning Tips</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Privacy Policy</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Terms & Conditions</a>
-              </li>-->
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="index.html"> Our Services</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="index.html"> Contact</a>
-              </li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="index.html"> Home</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="about.html"> About Us</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Our Services</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="contact.html"> Contact</a></li>
             </ul>
           </div>
         </div>
@@ -581,30 +883,14 @@
           <div class="footer-menu">
             <h5 class="widget-title py-2 mt-3 fw-semibold">Cleaning Services</h5>
             <ul class="menu-list d-flex flex-column list-unstyled">
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Industrial Cleaning</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Commercial Cleaning</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Residential Cleaning</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Laundry & Dry Cleaning</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Car Wash & Detailing</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Sneaker & Denim Care</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Deep Cleaning & Disinfection</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Pressure Washing</a>
-              </li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Industrial Cleaning</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Commercial Cleaning</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Residential Cleaning</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Laundry &amp; Dry Cleaning</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Car Wash &amp; Detailing</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Sneaker &amp; Denim Care</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Deep Cleaning &amp; Disinfection</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Pressure Washing</a></li>
             </ul>
           </div>
         </div>
@@ -612,30 +898,14 @@
           <div class="footer-menu">
             <h5 class="widget-title py-2 mt-3 fw-semibold">Other Services</h5>
             <ul class="menu-list d-flex flex-column list-unstyled">
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Landscaping & Tree Felling</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="20" height="20"><use xlink:href="#check-circle"></use></svg><a href="#"> Furniture Removal & Disposal</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Event Chair & Bin Rentals</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Office Supply Solutions</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> PPE & Safety Equipment</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Cleaning Chemical Supply</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Mold Remediation</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="#"> Tank Cleaning Services</a>
-              </li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Landscaping &amp; Tree Felling</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="20" height="20"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Furniture Removal &amp; Disposal</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Event Chair &amp; Bin Rentals</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Office Supply Solutions</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> PPE &amp; Safety Equipment</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Cleaning Chemical Supply</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Mold Remediation</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="16" height="16"><use xlink:href="#check-circle"></use></svg><a href="services.html"> Tank Cleaning Services</a></li>
             </ul>
           </div>
         </div>
@@ -643,28 +913,20 @@
           <div class="footer-menu">
             <h5 class="widget-title py-2 mt-3 fw-semibold">Contact Elpaso</h5>
             <ul class="menu-list d-flex flex-column list-unstyled">
-              <li class="fw-medium d-flex align-items-start">
-                <svg class="text-primary me-1 mt-1" width="18" height="18"><use xlink:href="#location"></use></svg><a href="#"> 12A Goby Street, Elephant View, Watervaal East, Rustenburg, NW, 0300</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="18" height="18"><use xlink:href="#email"></use></svg><a href="mailto:ishmaelkeogatile@gmail.com"> ishmaelkeogatile@gmail.com</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="18" height="18"><use xlink:href="#phone"></use></svg><a href="tel:0693060334"> 069 306 0334</a>
-              </li>
-              <li class="fw-medium text-capitalize d-flex align-items-center">
-                <svg class="text-primary me-1" width="18" height="18"><use xlink:href="#clock"></use></svg><a href="#"> Mon–Fri: 8:00–18:00</a>
-              </li>
+              <li class="fw-medium d-flex align-items-start"><svg class="text-primary me-1 mt-1" width="18" height="18"><use xlink:href="#location"></use></svg><a href="#"> 12A Goby Street, Elephant View, Watervaal East, Rustenburg, NW, 0300</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="18" height="18"><use xlink:href="#email"></use></svg><a href="mailto:ishmaelkeogatile@gmail.com"> ishmaelkeogatile@gmail.com</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="18" height="18"><use xlink:href="#phone"></use></svg><a href="tel:0693060334"> 069 306 0334</a></li>
+              <li class="fw-medium text-capitalize d-flex align-items-center"><svg class="text-primary me-1" width="18" height="18"><use xlink:href="#clock"></use></svg><a href="#"> Mon–Fri: 8:00–18:00</a></li>
             </ul>
           </div>
           <div class="footer-menu">
             <h5 class="widget-title py-2 mt-4 fw-semibold">Follow Us</h5>
             <ul class="social-links d-flex flex-wrap list-unstyled">
-              <li class="social me-3"><a href="#"><svg class="me-1" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-              <li class="social me-3"><a href="#"><svg class="me-1" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-              <li class="social me-3"><a href="#"><svg class="me-1" width="24" height="24"><use xlink:href="#linkedin"></use></svg></a></li>
-              <li class="social me-3"><a href="#"><svg class="me-1" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-              <li class="social me-3"><a href="#"><svg class="me-1" width="24" height="24"><use xlink:href="#youtube"></use></svg></a></li>
+              <li class="social me-3"><a href="#" aria-label="Facebook"><svg width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+              <li class="social me-3"><a href="#" aria-label="Twitter"><svg width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+              <li class="social me-3"><a href="#" aria-label="LinkedIn"><svg width="24" height="24"><use xlink:href="#linkedin"></use></svg></a></li>
+              <li class="social me-3"><a href="#" aria-label="Instagram"><svg width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+              <li class="social me-3"><a href="#" aria-label="YouTube"><svg width="24" height="24"><use xlink:href="#youtube"></use></svg></a></li>
             </ul>
           </div>
         </div>
@@ -673,7 +935,7 @@
     <hr class="m-0">
     <div class="container">
       <div class="footer-bottom d-md-flex justify-content-between py-4">
-        <p class="mb-0">© 2026 Elpaso Cleaning Solutions & Services — All rights reserved</p>
+        <p class="mb-0">&copy; 2026 Elpaso Cleaning Solutions &amp; Services — All rights reserved</p>
         <p class="mb-0">Founded by: <span class="fw-semibold">Keogatile Ishmael</span> | Rustenburg, North West</p>
       </div>
     </div>
