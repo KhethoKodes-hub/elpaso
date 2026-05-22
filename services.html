@@ -712,9 +712,10 @@
     </div>
   </section>
 
-  <!-- CTA SECTION (matching homepage / about) -->
-  <section id="cta" style="background-image: url(images/assets/hero55.png); background-size: cover; background-repeat: no-repeat; background-position: center;">
-    <div class="container padding-medium">
+    <!-- CTA SECTION (with overlay matching homepage) -->
+  <section id="cta" style="background-image: url(images/assets/hero55.png); background-size: cover; background-repeat: no-repeat; background-position: center; position: relative;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(5, 15, 50, 0.82) 0%, rgba(13, 40, 110, 0.72) 50%, rgba(5, 15, 50, 0.78) 100%); z-index: 1;"></div>
+    <div class="container padding-medium" style="position: relative; z-index: 2;">
       <div class="row g-lg-5 align-items-center">
         <div class="col-lg-6 mb-5 mb-lg-0">
           <div class="rounded-4 p-5" style="border: 2px dashed rgba(255,255,255,0.30); background: rgba(255,255,255,0.06); backdrop-filter: blur(6px);">
@@ -726,7 +727,7 @@
         <div class="col-lg-6">
           <h6 class="text-white" style="opacity:0.78; text-transform:uppercase;">Let's work together</h6>
           <h2 class="display-4 fw-bold text-white">Elpaso Cleaning Solutions</h2>
-          <p class="text-white">Call Ishmael or send a message — we’ll customise a cleaning plan that fits your space and budget.</p>
+          <p class="text-white">Call Ishmael or send a message — we'll customise a cleaning plan that fits your space and budget.</p>
           <ul class="d-flex flex-wrap align-items-center list-unstyled m-0 mb-4">
             <li class="phone text-white d-flex align-items-center me-4"><svg class="text-primary me-1" width="20" height="20"><use xlink:href="#phone"></use></svg> 069 306 0334</li>
             <li class="time text-white d-flex align-items-center"><svg class="text-primary me-1" width="20" height="20"><use xlink:href="#pen-new-round"></use></svg> Free consultation</li>
@@ -736,7 +737,6 @@
       </div>
     </div>
   </section>
-
   <!-- FOOTER (same as home/about) -->
   <footer id="footer">
     <div class="container padding-small">
